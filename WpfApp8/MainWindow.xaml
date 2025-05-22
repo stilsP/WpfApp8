@@ -1,0 +1,127 @@
+﻿<Window x:Class="WpfApp8.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp8"
+        mc:Ignorable="d"
+        Title="Каталог" Height="450" Width="800" Background="#FFCDC1AD">
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="200*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Панель поиска -->
+        <Grid Grid.Row="0" Background="#FFCDC1AD">
+            <StackPanel Orientation="Horizontal" Margin="10">
+
+                <TextBox x:Name="SearchTextBox" Width="200" Margin="5" 
+                         TextChanged="SearchTextBox_TextChanged"
+                         Tag="Поиск..." HorizontalAlignment="Center" Background="#FFF7F3E6"/>
+            </StackPanel>
+            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="115" Margin="675,10,10,10" >
+
+                <ComboBoxItem Tag="ProductArticle" Content="По артикулу"/>
+                <ComboBoxItem Tag="Name" Content="По названию"/>
+                <ComboBoxItem Tag="Category" Content="По категории"/>
+                <ComboBoxItem Tag="QuantityInStock" Content="По количеству"/>
+                <ComboBoxItem Tag="Cost" Content="По цене"/>
+                <Label Content="Сортировать по:" Target="{Binding ElementName=SortComboBox}"
+       Padding="5" HorizontalAlignment="Right" FontWeight="Bold" Height="40"/>
+            </ComboBox>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Margin="10">
+
+
+            <Rectangle Width="1" 
+               Height="20" 
+               Fill="LightGray" 
+               Margin="5"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <ListView Name="LViewServices" BorderBrush="Black" Background="#FFCDC1AD">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <local:SortableGridViewColumnHeader Tag="ProductArticle" OriginalHeader="Артикул" />
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="ProductArticle"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <local:SortableGridViewColumnHeader Tag="Name" OriginalHeader="Название" RenderTransformOrigin="1.501,4.45"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding >
+                                <Binding Path="Name"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <local:SortableGridViewColumnHeader Tag="id_Category" OriginalHeader="Категория"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="id_Category"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <local:SortableGridViewColumnHeader Tag="Description" OriginalHeader="Описание"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="Description"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <local:SortableGridViewColumnHeader Tag="QuantityInStock" OriginalHeader="Кол-во на складе"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="QuantityInStock"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <local:SortableGridViewColumnHeader Tag="Measurement" OriginalHeader="Единица измерения"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="Measurement"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <local:SortableGridViewColumnHeader Tag="Cost" OriginalHeader="Цена"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="Cost"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <!-- Остальные столбцы аналогично -->
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+
+        <Grid Grid.Row="2" Background="#FFCDC1AD">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="Клиенты" Margin="10" Click="ClientButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button Content="Отчётность" Margin="10" Click="OtchetButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="AddButton" Content="Добавить" Margin="10" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="EditButton" Content="Редактировать" Margin="10" Click="EditButton_Click" IsEnabled="False" Background="#FF31464F"/>
+                <Button x:Name="DeleteButton" Content="Удалить" Margin="10" Click="DeleteButton_Click" IsEnabled="False" Background="#FF31464F"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

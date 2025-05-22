@@ -1,0 +1,30 @@
+﻿<Window x:Class="WpfApp8.Otchet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp8"
+        mc:Ignorable="d"
+        Title="Отчётность" Height="450" Width="800">
+    <Grid Background="#FFCDC1AD">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="200*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <ListView Name="LViewServices" Background="#FFCDC1AD">
+                <ListView.View>
+                    <GridView>
+                       
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Row="2" Background="#FFCDC1AD">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="Каталог" Margin="10" Click="MainButton_Click" Background="#FF31464F" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
