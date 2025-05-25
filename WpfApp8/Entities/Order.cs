@@ -14,11 +14,14 @@ namespace WpfApp8.Entities
     
     public partial class Order
     {
-        public int id { get; set; }
+        public string Code { get; set; }
         public string Status { get; set; }
         public System.DateTime Date { get; set; }
-        public System.DateTime DeliveryDate { get; set; }
-        public string FIO_client { get; set; }
-        public int Code { get; set; }
+        public Nullable<int> id_Client { get; set; }
+        public string ProductArticle { get; set; }
+        public string Quantity { get; set; }
+    
+        public virtual Clients Clients { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

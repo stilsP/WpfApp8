@@ -22,14 +22,14 @@
                          Tag="Поиск..." HorizontalAlignment="Center" Background="#FFF7F3E6"/>
             </StackPanel>
             <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="115" Margin="675,10,10,10" >
-
+                <Label Content="Сортировать по:" Target="{Binding ElementName=SortComboBox}"
+Padding="5" HorizontalAlignment="Right" FontWeight="Bold" Height="40"/>
                 <ComboBoxItem Tag="ProductArticle" Content="По артикулу"/>
                 <ComboBoxItem Tag="Name" Content="По названию"/>
                 <ComboBoxItem Tag="Category" Content="По категории"/>
                 <ComboBoxItem Tag="QuantityInStock" Content="По количеству"/>
                 <ComboBoxItem Tag="Cost" Content="По цене"/>
-                <Label Content="Сортировать по:" Target="{Binding ElementName=SortComboBox}"
-       Padding="5" HorizontalAlignment="Right" FontWeight="Bold" Height="40"/>
+                
             </ComboBox>
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -116,8 +116,7 @@
 
         <Grid Grid.Row="2" Background="#FFCDC1AD">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Content="Клиенты" Margin="10" Click="ClientButton_Click" Background="#FF31464F" Foreground="White"/>
-                <Button Content="Отчётность" Margin="10" Click="OtchetButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="ManagerButton" Content="Менеджеры" Margin="10" Click="ManagerButton_Click" Background="#FF31464F" Foreground="White"/>
                 <Button x:Name="AddButton" Content="Добавить" Margin="10" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
                 <Button x:Name="EditButton" Content="Редактировать" Margin="10" Click="EditButton_Click" IsEnabled="False" Background="#FF31464F"/>
                 <Button x:Name="DeleteButton" Content="Удалить" Margin="10" Click="DeleteButton_Click" IsEnabled="False" Background="#FF31464F"/>

@@ -13,10 +13,10 @@ namespace WpfApp8.Entities
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class diplomEntities2 : DbContext
+    public partial class diplomchikEntities : DbContext
     {
-        public diplomEntities2()
-            : base("name=diplomEntities2")
+        public diplomchikEntities()
+            : base("name=diplomchikEntities")
         {
         }
     

@@ -13,8 +13,8 @@ namespace WpfApp8
     /// </summary>
     public partial class App : Application
     {
-        public static Entities.diplomEntities2 Context
-        { get; } = new Entities.diplomEntities2();
+        public static Entities.diplomchikEntities Context
+        { get; } = new Entities.diplomchikEntities();
         
     }
 }

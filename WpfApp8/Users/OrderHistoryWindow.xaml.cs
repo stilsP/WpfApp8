@@ -12,23 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfApp8
+namespace WpfApp8.Users
 {
     /// <summary>
-    /// Логика взаимодействия для Otchet.xaml
+    /// Логика взаимодействия для OrderHistoryWindow.xaml
     /// </summary>
-    public partial class Otchet : Window
+    public partial class OrderHistoryWindow : Window
     {
-        public Otchet()
+        public OrderHistoryWindow()
         {
             InitializeComponent();
-        }
-
-        private void MainButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow window = new MainWindow();
-            window.Show();
-            this.Close(); // Закрываем текущее окно
         }
     }
 }

@@ -33,7 +33,7 @@ namespace WpfApp8
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            using (var context = new diplomEntities2())
+            using (var context = new diplomchikEntities())
             {
                 try
                 {
@@ -45,9 +45,23 @@ namespace WpfApp8
 
                     if (user != null)
                     {
-                        // Создаем и показываем новое окно как модальное
-                        MainWindow newWindow = new MainWindow();
-                        newWindow.Show();
+                        // Получаем IdRole из БД
+                        int? idRole = user.id_Role;
+
+                        // Проверяем и открываем соответствующее окно
+                        if (idRole == 1) // Роль пользователя - обычный пользователь
+                        {
+                            new MainWindow_User().Show();
+                        }
+                        else if (idRole == 2) // Роль администратора
+                        {
+                            new MainWindow().Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Неизвестная роль.");
+                        }
+
                         this.Close();
                     }
                     else

@@ -29,10 +29,15 @@
         <TextBox x:Name="ArticleTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
 
         <Label Grid.Row="1" Grid.Column="0" Content="Название:" Margin="5"/>
-        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" TextChanged="NameTextBox_TextChanged"  />
+        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Background="#FFF7F3E6" TextChanged="NameTextBox_TextChanged"  />
 
         <Label Grid.Row="2" Grid.Column="0" Content="Категория:" Margin="5"/>
-        <TextBox x:Name="CategoryTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <ComboBox Grid.Row="2" Grid.Column="1"
+            ItemsSource="{Binding Categories}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding SelectedCategoryId}"
+                  Margin="10"/>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Описание:" Margin="5"/>
         <TextBox x:Name="DescriptionTextBox" Grid.Row="3" Grid.Column="1" Margin="5" 
