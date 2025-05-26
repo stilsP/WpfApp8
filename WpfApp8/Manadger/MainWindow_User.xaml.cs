@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,34 +22,132 @@ namespace WpfApp8
     /// </summary>
     public partial class MainWindow_User : Window
     {
-         public MainWindow_User()
+        public CollectionViewSource _cvs;
+        public Dictionary<string, ListSortDirection> _sortDirections = new Dictionary<string, ListSortDirection>();
+        public Dictionary<string, SortableGridViewColumnHeader> _headers = new Dictionary<string, SortableGridViewColumnHeader>();
+        public List<Order> _order;
+        private Order selectedOrder;
+
+        public MainWindow_User()
         {
             InitializeComponent();
-            DataContext = new MainWindow_UserViewModel(); // Убедитесь, что ViewModel инициализируется
-            // Загрузка данных заказов
-            LoadOrders();
-        }
 
-        private void LoadOrders()
-        {
-            using (var context = new diplomchikEntities())
+            // Инициализируем словарь со всеми возможными ключами
+            _sortDirections.Add("Code", ListSortDirection.Ascending);
+            _sortDirections.Add("Status", ListSortDirection.Ascending);
+            _sortDirections.Add("Date", ListSortDirection.Ascending);
+            _sortDirections.Add("id_Client", ListSortDirection.Ascending);
+            _sortDirections.Add("ProductArticle", ListSortDirection.Ascending);
+            _sortDirections.Add("Quantity", ListSortDirection.Ascending);
+
+
+            _cvs = new CollectionViewSource();
+            _cvs.Source = _order;
+            LViewOrder.ItemsSource = _cvs.View;
+            LViewOrder.ItemsSource = App.Context.Order.ToList();
+
+            foreach (GridViewColumn column in (LViewOrder.View as GridView).Columns)
             {
-                var orders = context.Order.ToList();
-                dataGridOrders.ItemsSource = orders;
+                var header = column.Header as SortableGridViewColumnHeader;
+                if (header != null)
+                {
+                    _headers.Add((string)header.Tag, header);
+                    // Теперь это не вызовет ошибку, так как все ключи уже добавлены
+                    _sortDirections[(string)header.Tag] = ListSortDirection.Ascending;
+                }
+            }
+        }
+        public void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var view = (CollectionView)CollectionViewSource.GetDefaultView(LViewOrder.ItemsSource);
+            view.Filter = new Predicate<object>(Filter);
+        }
+        public bool Filter(object item)
+        {
+            if (string.IsNullOrEmpty(SearchTextBox.Text))
+                return true;
+
+            var Order = item as Order;
+            return
+                   Order.Code.ToString().Contains(SearchTextBox.Text) ||
+                   Order.Status.Contains(SearchTextBox.Text) ||
+                   Order.Date.ToString().Contains(SearchTextBox.Text) ||
+                   Order.id_Client.ToString().Contains(SearchTextBox.Text) ||
+                   Order.ProductArticle.Contains(SearchTextBox.Text) ||
+                   Order.Quantity.Contains(SearchTextBox.Text);
+        }
+        public void UpdateSortIndicators()
+        {
+            // Убираем все индикаторы
+            foreach (var header in _headers.Values)
+            {
+                header.UpdateHeader("");
+            }
+
+            // Добавляем текущий индикатор
+            var currentColumn = (LViewOrder.View as GridView).Columns.FirstOrDefault(c => c.Header is SortableGridViewColumnHeader header && _sortDirections.ContainsKey((string)header.Tag));
+
+            if (currentColumn != null)
+            {
+                var header = _headers[(string)((SortableGridViewColumnHeader)currentColumn.Header).Tag];
+                string indicator = _sortDirections[(string)((SortableGridViewColumnHeader)currentColumn.Header).Tag] == ListSortDirection.Ascending ? "1" : "2";
+                header.UpdateHeader(indicator);
             }
         }
 
-        private void ClientButton_Click(object sender, RoutedEventArgs e)
+        public void ClearSorting()
         {
-            clients newWindow = new clients();
-            newWindow.Show();
-            this.Close();
+            _cvs.SortDescriptions.Clear();
+            UpdateSortIndicators();
+        }
+        public void ClearSortButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClearSorting();
+        }
+        public void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SortComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string propertyName = (string)selectedItem.Tag;
+                SortByColumn(propertyName);
+            }
+        }
+        public void SortByColumn(string propertyName)
+        {
+            ListSortDirection direction = _sortDirections[propertyName];
+
+            LViewOrder.Items.SortDescriptions.Clear();
+            LViewOrder.Items.SortDescriptions.Add(new SortDescription(propertyName, direction));
+
+            _sortDirections[propertyName] = direction == ListSortDirection.Ascending
+                ? ListSortDirection.Descending
+                : ListSortDirection.Ascending;
+
+            UpdateSortIndicators();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addOrder = new AddOrder();
+            if (addOrder.ShowDialog() == true)
+            {
+                App.Context.Order.Add(addOrder.Order);
+                App.Context.SaveChanges();
+                LViewOrder.ItemsSource = App.Context.Order.ToList();
+            }
         }
 
         private void CatalogButton_Click(object sender, RoutedEventArgs e)
         {
             Catalog newWindow = new Catalog();
-            newWindow.Show();
+            newWindow.ShowDialog();
+            this.Close();
+        }
+
+        private void ClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            clients newWindow = new clients();
+            newWindow.ShowDialog();
             this.Close();
         }
     }

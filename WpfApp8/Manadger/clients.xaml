@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8"
         mc:Ignorable="d"
-        Title="Клиенты" Height="450" Width="800">
+        Title="Клиенты" WindowState="Maximized">
     <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -13,20 +13,16 @@
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#FFCDC1AD">
-            <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBox x:Name="SearchTextBox" Width="205" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
+            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="205" Margin="15" HorizontalAlignment="Right">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF7F3E6"/>
+                        <GradientStop Color="#FFF7F3E6" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
 
-                <TextBox x:Name="SearchTextBox" Width="200" Margin="5" 
-         TextChanged="SearchTextBox_TextChanged"
-         Tag="Поиск..." HorizontalAlignment="Center" Background="#FFF7F3E6"/>
-                <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="115" HorizontalAlignment="Right">
-                    <ComboBox.Background>
-                        <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#FFF7F3E6" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ComboBox.Background>
-
-                    <ComboBoxItem Tag="Name" Content="По Имени"/>
+                        <ComboBoxItem Tag="Name" Content="По Имени"/>
                     <ComboBoxItem Tag="Surname" Content="По Фамилии"/>
                     <ComboBoxItem Tag="Patronymic" Content="По Отчеству"/>
                     <ComboBoxItem Tag="Adress" Content="По Адресу"/>
@@ -34,7 +30,7 @@
                     <ComboBoxItem Tag="email" Content="По почте"/>
 
                 </ComboBox>
-            </StackPanel>
+
         </Grid>
         <Grid Grid.Row="1">
             <ListView Name="LViewClients" Background="#FFCDC1AD">
@@ -54,13 +50,13 @@
         <Grid Grid.Row="2" Background="#FFCDC1AD">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="Каталог" 
-                    Margin="10" 
+                    Margin="12" FontSize="20"
                     Click="MainButton_Click" 
                     Background="#FF31464F" 
                     Foreground="White" 
                     Width="auto">
                 </Button>
-                <Button x:Name="OrderButton" Content="Заказы" Margin="10" Click="OrderButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="OrderButton" Content="Заказы" Margin="12" FontSize="20" Click="OrderButton_Click" Background="#FF31464F" Foreground="White"/>
 
             </StackPanel>
         </Grid>

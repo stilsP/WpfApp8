@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8.Manadger"
         mc:Ignorable="d"
-        Title="Catalog" Height="450" Width="800">
+        Title="Каталог" WindowState="Maximized">
     <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -15,13 +15,8 @@
 
         <!-- Панель поиска -->
         <Grid Grid.Row="0" Background="#FFCDC1AD">
-            <StackPanel Orientation="Horizontal" Margin="10">
-
-                <TextBox x:Name="SearchTextBox" Width="200" Margin="5" 
-                     TextChanged="SearchTextBox_TextChanged"
-                     Tag="Поиск..." HorizontalAlignment="Center" Background="#FFF7F3E6"/>
-            </StackPanel>
-            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="115" Margin="675,10,10,10" >
+            <TextBox x:Name="SearchTextBox" Width="205" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
+            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="205" Margin="15" HorizontalAlignment="Right">
 
                 <ComboBoxItem Tag="ProductArticle" Content="По артикулу"/>
                 <ComboBoxItem Tag="Name" Content="По названию"/>
@@ -116,8 +111,8 @@
 
         <Grid Grid.Row="2" Background="#FFCDC1AD">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="ClientsButton" Content="Клиенты" Margin="10" Click="ClientsButton_Click" Background="#FF31464F" Foreground="White"/>
-                <Button x:Name="OrderButton" Content="Заказы" Margin="10" Click="OrderButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="ClientsButton" Content="Клиенты" Margin="12" FontSize="20" Click="ClientsButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="OrderButton" Content="Заказы" Margin="12" FontSize="20" Click="OrderButton_Click" Background="#FF31464F" Foreground="White"/>
 
             </StackPanel>
         </Grid>

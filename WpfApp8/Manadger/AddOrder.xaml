@@ -1,0 +1,61 @@
+﻿<Window x:Class="WpfApp8.Manadger.AddOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp8.Manadger"
+        mc:Ignorable="d"
+       Title="Добавление заказа" WindowState="Maximized" Background="#FFCDC1AD">
+    <Grid Margin="10" Background="#FFCDC1AD">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Для подписей -->
+            <ColumnDefinition Width="*"/>
+            <!-- Для текстовых полей -->
+        </Grid.ColumnDefinitions>
+
+
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Код заказа:" Margin="5"/>
+        <TextBox x:Name="CodeTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Background="#FFF7F3E6"  />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Статус заказа:" Margin="5"/>
+        <TextBox x:Name="StatusTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Дата заказа:" Margin="5"/>
+        <TextBox x:Name="DateTextBox" Grid.Row="3" Grid.Column="1" Margin="5"  Background="#FFF7F3E6" />
+
+        <Label Grid.Row="4" Grid.Column="0" Content="id Клиента:" Margin="5"/>
+        <TextBox x:Name="id_ClientTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Артикул продукта:" Margin="5"/>
+        <TextBox x:Name="ProductArticleTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Количество:" Margin="5"/>
+        <TextBox x:Name="QuantityTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+
+
+
+        <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" 
+    HorizontalAlignment="Right" Margin="5">
+            <Button x:Name="SaveButton" Content="Сохранить" Margin="12" FontSize="20" 
+    Click="SaveButton_Click" Background="#FF31464F" Foreground="White" />
+            <Button x:Name="CancelButton" Content="Отмена" Margin="12" FontSize="20"
+    Click="CancelButton_Click" Background="#FF31464F" Foreground="White" />
+        </StackPanel>
+    </Grid>
+</Window>
