@@ -20,11 +20,6 @@ namespace WpfApp8
     /// </summary>
     public partial class AddEditWindow : Window
     {
-        public class Category
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
         public Product Product { get; set; }
         public bool IsNewProduct { get; set; }
 
@@ -44,7 +39,7 @@ namespace WpfApp8
             // Заполняем поля существующими данными
             ArticleTextBox.Text = Product.ProductArticle;
             NameTextBox.Text = Product.Name;
-            CategoryComboBox.Text = Product.id_Category.ToString();
+            CategoryTextBox.Text = Product.id_Category.ToString();
             DescriptionTextBox.Text = Product.Description;
             QuantityTextBox.Text = Product.QuantityInStock.ToString();
             MeasurementTextBox.Text = Product.Measurement;
@@ -56,7 +51,7 @@ namespace WpfApp8
             // Валидация данных
             if (string.IsNullOrEmpty(ArticleTextBox.Text) ||
                 string.IsNullOrEmpty(NameTextBox.Text) ||
-                string.IsNullOrEmpty(CategoryComboBox.Text) ||
+                string.IsNullOrEmpty(CategoryTextBox.Text) ||
                 string.IsNullOrEmpty(QuantityTextBox.Text) ||
                 string.IsNullOrEmpty(MeasurementTextBox.Text) ||
                 string.IsNullOrEmpty(CostTextBox.Text))
@@ -73,7 +68,7 @@ namespace WpfApp8
                     // Для нового продукта
                     Product.ProductArticle = ArticleTextBox.Text;
                     Product.Name = NameTextBox.Text;
-                    Product.id_Category = int.Parse(CategoryComboBox.Text);
+                    Product.id_Category = int.Parse(CategoryTextBox.Text);
                     Product.Description = DescriptionTextBox.Text;
                     Product.QuantityInStock = int.Parse(QuantityTextBox.Text);
                     Product.Measurement = MeasurementTextBox.Text;
@@ -83,7 +78,7 @@ namespace WpfApp8
                 {
                     // Для существующего продукта
                     Product.Name = NameTextBox.Text;
-                    Product.id_Category = int.Parse(CategoryComboBox.Text);
+                    Product.id_Category = int.Parse(CategoryTextBox.Text);
                     Product.Description = DescriptionTextBox.Text;
                     Product.QuantityInStock = int.Parse(QuantityTextBox.Text);
                     Product.Measurement = MeasurementTextBox.Text;

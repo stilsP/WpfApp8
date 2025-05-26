@@ -31,7 +31,6 @@ namespace WpfApp8
         public Dictionary<string, SortableGridViewColumnHeader> _headers = new Dictionary<string, SortableGridViewColumnHeader>();
         public List<Product> _products;
         private Product selectedProduct;
-        private ViewModel _viewModel;
 
 
         public MainWindow()
@@ -43,8 +42,6 @@ namespace WpfApp8
             _cvs.Source = _products;
             LViewServices.ItemsSource = _cvs.View;
             LViewServices.ItemsSource = App.Context.Product.ToList();
-            _viewModel = new ViewModel();
-            DataContext = _viewModel;
 
             // Сохраняем ссылки на заголовки
             foreach (GridViewColumn column in (LViewServices.View as GridView).Columns)
@@ -59,7 +56,6 @@ namespace WpfApp8
             // Подписываемся на событие выбора элемента
             LViewServices.SelectionChanged += LViewServices_SelectionChanged;
         }
-
         private void LViewServices_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedProduct = LViewServices.SelectedItem as Product;
