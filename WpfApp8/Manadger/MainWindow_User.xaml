@@ -12,6 +12,14 @@
     <RowDefinition Height="200*"></RowDefinition>
     <RowDefinition Height="60"></RowDefinition>
 </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding UserName}" 
+           HorizontalAlignment="Right"
+           Margin="0,10,20,0"
+           FontSize="16"/>
+        <TextBlock Text="{Binding UserName, Mode=OneWay}" 
+           HorizontalAlignment="Right"
+           Margin="0,10,20,0"
+           FontSize="16"/>
         <DataGrid Grid.Row="1" x:Name="dataGridOrders" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Order}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Code}" Header="Code заказа" />

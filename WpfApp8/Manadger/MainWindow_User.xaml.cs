@@ -24,7 +24,7 @@ namespace WpfApp8
          public MainWindow_User()
         {
             InitializeComponent();
-
+            DataContext = new MainWindow_UserViewModel(); // Убедитесь, что ViewModel инициализируется
             // Загрузка данных заказов
             LoadOrders();
         }
