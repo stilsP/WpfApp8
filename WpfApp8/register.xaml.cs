@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Configuration;
 using WpfApp8.Entities;
+using WpfApp8.Manadger; 
 
 
 namespace WpfApp8
@@ -40,20 +41,21 @@ namespace WpfApp8
                     string login = txtLogin.Text;
                     string password = txtPassword.Password;
 
-                    var user = context.Users.FirstOrDefault(u =>
-                        u.Login == login && u.Password == password);
+                    var user = context.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
 
                     if (user != null)
                     {
-                        // Получаем IdRole из БД
+                        // Проверьте, что поля существуют в сущности Users
+                        UserSession.CurrentUserName = $"{user.Name} {user.Surname} {user.Patronymic}"; // Пример для полей ФИО
+                        UserSession.CurrentUserId = user.id;
+
                         int? idRole = user.id_Role;
 
-                        // Проверяем и открываем соответствующее окно
-                        if (idRole == 1) // Роль пользователя - обычный пользователь
+                        if (idRole == 1) // Пользователь
                         {
                             new MainWindow_User().Show();
                         }
-                        else if (idRole == 2) // Роль администратора
+                        else if (idRole == 2) // Администратор
                         {
                             new MainWindow().Show();
                         }

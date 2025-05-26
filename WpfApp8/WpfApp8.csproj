@@ -109,7 +109,6 @@
     <Compile Include="Admin\Manager.xaml.cs">
       <DependentUpon>Manager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Admin\ViewModel.cs" />
     <Compile Include="Manadger\Catalog.xaml.cs">
       <DependentUpon>Catalog.xaml</DependentUpon>
     </Compile>
@@ -161,9 +160,11 @@
     <Compile Include="Manadger\MainWindow_User.xaml.cs">
       <DependentUpon>MainWindow_User.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Manadger\MainWindow_UserViewModel.cs" />
     <Compile Include="Manadger\SortableGridViewColumnHeader1.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Manadger\UserSession.cs" />
     <Compile Include="register.xaml.cs">
       <DependentUpon>register.xaml</DependentUpon>
     </Compile>
