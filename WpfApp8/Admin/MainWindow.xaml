@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8"
         mc:Ignorable="d"
-        Title="Каталог" Height="450" Width="800" Background="#FFCDC1AD">
+        Title="Каталог" WindowState="Maximized" Background="#FFCDC1AD">
     <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -15,18 +15,12 @@
 
         <!-- Панель поиска -->
         <Grid Grid.Row="0" Background="#FFCDC1AD">
-            <StackPanel Orientation="Horizontal" Margin="10">
-
-                <TextBox x:Name="SearchTextBox" Width="200" Margin="5" 
-                         TextChanged="SearchTextBox_TextChanged"
-                         Tag="Поиск..." HorizontalAlignment="Center" Background="#FFF7F3E6"/>
-            </StackPanel>
-            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="115" Margin="675,10,10,10" >
-                <Label Content="Сортировать по:" Target="{Binding ElementName=SortComboBox}"
-Padding="5" HorizontalAlignment="Right" FontWeight="Bold" Height="40"/>
+            <TextBox x:Name="SearchTextBox" Width="205" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
+            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="205" Margin="15" HorizontalAlignment="Right">
+                <Label Content="Сортировать по:" Target="{Binding ElementName=SortComboBox}" Padding="5" HorizontalAlignment="Right" FontWeight="Bold" Height="40"/>
+                
                 <ComboBoxItem Tag="ProductArticle" Content="По артикулу"/>
                 <ComboBoxItem Tag="Name" Content="По названию"/>
-                <ComboBoxItem Tag="Category" Content="По категории"/>
                 <ComboBoxItem Tag="QuantityInStock" Content="По количеству"/>
                 <ComboBoxItem Tag="Cost" Content="По цене"/>
                 
@@ -116,10 +110,10 @@ Padding="5" HorizontalAlignment="Right" FontWeight="Bold" Height="40"/>
 
         <Grid Grid.Row="2" Background="#FFCDC1AD">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="ManagerButton" Content="Менеджеры" Margin="10" Click="ManagerButton_Click" Background="#FF31464F" Foreground="White"/>
-                <Button x:Name="AddButton" Content="Добавить" Margin="10" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
-                <Button x:Name="EditButton" Content="Редактировать" Margin="10" Click="EditButton_Click" IsEnabled="False" Background="#FF31464F"/>
-                <Button x:Name="DeleteButton" Content="Удалить" Margin="10" Click="DeleteButton_Click" IsEnabled="False" Background="#FF31464F"/>
+                <Button x:Name="ManagerButton" Content="Менеджеры" Margin="12" FontSize="20" Click="ManagerButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="AddButton" Content="Добавить" Margin="12" FontSize="20" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="EditButton" Content="Редактировать" Margin="12" FontSize="20" Click="EditButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="DeleteButton" Content="Удалить" Margin="12" FontSize="20" Click="DeleteButton_Click" Background="#FF31464F" Foreground="White"/>
             </StackPanel>
         </Grid>
     </Grid>

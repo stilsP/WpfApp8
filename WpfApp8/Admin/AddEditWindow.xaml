@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8"
         mc:Ignorable="d"
-        Title="AddEditWindow" Height="450" Width="800" Background="#FFCDC1AD">
+        Title="Добавление/Редактирование товаров" WindowState="Maximized" Background="#FFCDC1AD">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -49,9 +49,9 @@
 
         <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" 
                 HorizontalAlignment="Right" Margin="5">
-            <Button x:Name="SaveButton" Content="Сохранить" Margin="5" 
+            <Button x:Name="SaveButton" Content="Сохранить" Margin="12" FontSize="20"
                 Click="SaveButton_Click" Background="#FF31464F" Foreground="White" />
-            <Button x:Name="CancelButton" Content="Отмена" Margin="5" 
+            <Button x:Name="CancelButton" Content="Отмена" Margin="12" FontSize="20"
                 Click="CancelButton_Click" Background="#FF31464F" Foreground="White" />
         </StackPanel>
     </Grid>
