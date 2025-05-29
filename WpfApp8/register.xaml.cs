@@ -1,5 +1,7 @@
-﻿using System;
+﻿using QuestPDF.Infrastructure;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
@@ -13,9 +15,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Configuration;
 using WpfApp8.Entities;
-using WpfApp8.Manadger; 
+using WpfApp8.Manadger;
+
 
 
 namespace WpfApp8
@@ -46,16 +48,16 @@ namespace WpfApp8
                     if (user != null)
                     {
                         // Проверьте, что поля существуют в сущности Users
-                        UserSession.CurrentUserName = $"{user.Name} {user.Surname} {user.Patronymic}"; // Пример для полей ФИО
+                        UserSession.CurrentUserFullName = $"{user.Surname} {user.Name} {user.Patronymic}";
                         UserSession.CurrentUserId = user.id;
 
                         int? idRole = user.id_Role;
 
-                        if (idRole == 1) // Пользователь
+                        if (idRole == 2) // Пользователь
                         {
                             new MainWindow_User().Show();
                         }
-                        else if (idRole == 2) // Администратор
+                        else if (idRole == 1) // Администратор
                         {
                             new MainWindow().Show();
                         }
