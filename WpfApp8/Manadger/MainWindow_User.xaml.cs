@@ -155,32 +155,40 @@ namespace WpfApp8
         }
         private void GenerateReceipt_Click(object sender, RoutedEventArgs e)
         {
+            // Получаем выбранный заказ
+            var selectedOrder = LViewOrder.SelectedItem as Order; // Замените YourDataGrid на имя вашего элемента управления
 
-            using (var db = new diplomchikEntities())
+            if (selectedOrder != null)
             {
-                try
+                using (var db = new diplomchikEntities())
                 {
-
-                    // Получаем первый заказ с менеджером и клиентом
-                    var order = db.Order  // Важно: Orders (множественное число)
-                        .Include("Users")  // Используем строку вместо лямбда
-                        .Include("Clients")
-                        .FirstOrDefault();
-
-                    if (order != null && order.Users != null)  // Проверяем User вместо Manager
+                    try
                     {
-                        // Вызываем метод генерации
-                        PdfService.GenerateReceipt(order, order.Users);
+                        // Получаем данные о менеджере и клиенте
+                        var order = db.Order
+                            .Include("Users")
+                            .Include("Clients")
+                            .FirstOrDefault(o => o.Code == selectedOrder.Code);
+
+                        if (order != null && order.Users != null)
+                        {
+                            // Вызываем метод генерации
+                            PdfService.GenerateReceipt(order, order.Users);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Нет данных для формирования чека!");
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Нет данных для формирования чека!");
+                        MessageBox.Show($"Ошибка: {ex.Message}");
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка: {ex.Message}");
-                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите заказ для формирования чека!");
             }
         }
 

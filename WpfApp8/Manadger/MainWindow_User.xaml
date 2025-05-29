@@ -32,8 +32,7 @@
             </ComboBox>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Order}"
-          SelectedItem="{Binding SelectedOrder, Mode=TwoWay}" Name="LViewOrder" Background="#FFCDC1AD">
+            <ListView ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Name="LViewOrder" Background="#FFCDC1AD">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Код" DisplayMemberBinding="{Binding Code}" Width="auto"/>
@@ -53,7 +52,7 @@
                 <Button Content="Каталог" Margin="12" FontSize="20" Background="#FF31464F" Click="CatalogButton_Click"  Foreground="White"/>
                 <Button Content="Клиенты" Margin="12" FontSize="20" Background="#FF31464F" Click="ClientButton_Click"  Foreground="White"/>
                 <Button x:Name="AddButton" Content="Добавить" Margin="12" FontSize="20" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
-                <Button Content="Сформировать чек"  Command="{Binding GenerateReceiptCommand}" 
+                <Button x:Name="CheckButton" Content="Сформировать чек"  Command="{Binding GenerateReceiptCommand}" 
         Click="GenerateReceipt_Click"
         Margin="10"
         Padding="5" ></Button>
