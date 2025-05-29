@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace WpfApp8.Entities
 {
     using System;
@@ -20,8 +22,11 @@ namespace WpfApp8.Entities
         public Nullable<int> id_Client { get; set; }
         public string ProductArticle { get; set; }
         public string Quantity { get; set; }
+        public Nullable<int> ManagerId { get; set; }
     
         public virtual Clients Clients { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Users Users { get; set; }
+
     }
 }
