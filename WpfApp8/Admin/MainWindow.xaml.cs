@@ -190,7 +190,7 @@ namespace WpfApp8
 
         private void ManagerButton_Click(object sender, RoutedEventArgs e)
         {
-            Manager newWindow = new Manager();
+            Managers newWindow = new Managers();
             newWindow.Show();
             this.Close();
         }
