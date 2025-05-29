@@ -8,7 +8,7 @@ namespace WpfApp8.Manadger
 {
     public static class UserSession
     {
-        public static string CurrentUserName { get; set; }
+        public static string CurrentUserFullName { get; set; }
         public static int CurrentUserId { get; set; }
     }
 }

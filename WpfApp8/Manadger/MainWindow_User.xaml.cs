@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuestPDF.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace WpfApp8
         public MainWindow_User()
         {
             InitializeComponent();
-
+            QuestPDF.Settings.License = LicenseType.Community;
             // Инициализируем словарь со всеми возможными ключами
             _sortDirections.Add("Code", ListSortDirection.Ascending);
             _sortDirections.Add("Status", ListSortDirection.Ascending);
@@ -39,6 +40,7 @@ namespace WpfApp8
             _sortDirections.Add("id_Client", ListSortDirection.Ascending);
             _sortDirections.Add("ProductArticle", ListSortDirection.Ascending);
             _sortDirections.Add("Quantity", ListSortDirection.Ascending);
+            _sortDirections.Add("Manager", ListSortDirection.Ascending);
 
 
             _cvs = new CollectionViewSource();
@@ -74,7 +76,8 @@ namespace WpfApp8
                    Order.Date.ToString().Contains(SearchTextBox.Text) ||
                    Order.id_Client.ToString().Contains(SearchTextBox.Text) ||
                    Order.ProductArticle.Contains(SearchTextBox.Text) ||
-                   Order.Quantity.Contains(SearchTextBox.Text);
+                   Order.Quantity.Contains(SearchTextBox.Text) ||
+                   Order.ManagerId.ToString().Contains(SearchTextBox.Text);
         }
         public void UpdateSortIndicators()
         {
@@ -150,5 +153,36 @@ namespace WpfApp8
             newWindow.ShowDialog();
             this.Close();
         }
+        private void GenerateReceipt_Click(object sender, RoutedEventArgs e)
+        {
+
+            using (var db = new diplomchikEntities())
+            {
+                try
+                {
+
+                    // Получаем первый заказ с менеджером и клиентом
+                    var order = db.Order  // Важно: Orders (множественное число)
+                        .Include("Users")  // Используем строку вместо лямбда
+                        .Include("Clients")
+                        .FirstOrDefault();
+
+                    if (order != null && order.Users != null)  // Проверяем User вместо Manager
+                    {
+                        // Вызываем метод генерации
+                        PdfService.GenerateReceipt(order, order.Users);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Нет данных для формирования чека!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}");
+                }
+            }
+        }
+
     }
 }

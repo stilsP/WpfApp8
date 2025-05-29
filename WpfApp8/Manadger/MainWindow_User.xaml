@@ -4,26 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="Заказы" WindowState="Maximized">
+        Title="Заказы" WindowState="Maximized" d:DesignHeight="457.415" d:DesignWidth="501.045">
     <Grid Background="#c5c0c9">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="200*"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="{Binding UserName}" 
-HorizontalAlignment="Center"
-Margin="0,10,20,0"
-FontSize="16"/>
-        <TextBlock Text="{Binding UserName, Mode=OneWay}" 
-HorizontalAlignment="Right"
-Margin="0,10,20,0"
-FontSize="16"/>
-        <Grid Grid.Row="0" Background="#FFCDC1AD">
 
-            <TextBox x:Name="SearchTextBox" Width="205" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
-            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="205" Margin="15" HorizontalAlignment="Right">
+        <Grid Grid.Row="0" Background="#FFCDC1AD">
+            <TextBlock Text="{Binding UserFullName, diag:PresentationTraceSources.TraceLevel=High}" HorizontalAlignment="Center" Margin="15"
+           Background="#FFCDC1AD" Width="auto" FontWeight="Bold" FontSize="16"/>
+            <TextBox x:Name="SearchTextBox" Width="300" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
+            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="300" Margin="15" HorizontalAlignment="Right">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF7F3E6"/>
@@ -37,24 +32,32 @@ FontSize="16"/>
             </ComboBox>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView Name="LViewOrder" Background="#FFCDC1AD">
+            <ListView ItemsSource="{Binding Order}"
+          SelectedItem="{Binding SelectedOrder, Mode=TwoWay}" Name="LViewOrder" Background="#FFCDC1AD">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Код" DisplayMemberBinding="{Binding Code}" Width="auto"/>
                         <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}"/>
-                        <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date, StringFormat=dd.MM.yyyy}"/>
                         <GridViewColumn Header="Клиент" DisplayMemberBinding="{Binding id_Client}"/>
                         <GridViewColumn Header="Артикул продукта" DisplayMemberBinding="{Binding ProductArticle}"/>
                         <GridViewColumn Header="Кол-во" DisplayMemberBinding="{Binding Quantity}"/>
+                        <GridViewColumn Header="Менеджер" DisplayMemberBinding="{Binding ManagerId}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
+        
         <Grid Grid.Row="2" Background="#FFCDC1AD">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="Каталог" Margin="12" FontSize="20" Background="#FF31464F" Click="CatalogButton_Click"  Foreground="White"/>
                 <Button Content="Клиенты" Margin="12" FontSize="20" Background="#FF31464F" Click="ClientButton_Click"  Foreground="White"/>
                 <Button x:Name="AddButton" Content="Добавить" Margin="12" FontSize="20" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button Content="Сформировать чек"  Command="{Binding GenerateReceiptCommand}" 
+        Click="GenerateReceipt_Click"
+        Margin="10"
+        Padding="5" ></Button>
+
 
             </StackPanel>
         </Grid>

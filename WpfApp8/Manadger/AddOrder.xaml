@@ -48,6 +48,9 @@
         <Label Grid.Row="6" Grid.Column="0" Content="Количество:" Margin="5"/>
         <TextBox x:Name="QuantityTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
 
+        <Label Grid.Row="7" Grid.Column="0" Content="Менеджер:" Margin="5"/>
+        <TextBox x:Name="ManagerTextBox" Grid.Row="7" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+
 
 
         <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" 
