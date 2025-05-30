@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ using System.Windows.Shapes;
 using WpfApp8;
 using WpfApp8.Admin;
 using WpfApp8.Entities;
+
 
 
 namespace WpfApp8
@@ -194,5 +197,6 @@ namespace WpfApp8
             newWindow.Show();
             this.Close();
         }
+        
     }
 }
