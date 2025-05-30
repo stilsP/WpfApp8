@@ -173,7 +173,7 @@ namespace WpfApp8
                         if (order != null && order.Users != null)
                         {
                             // Вызываем метод генерации
-                            PdfService.GenerateReceipt(order, order.Users);
+                            PdfService.GenerateReceipt(order, order.Users, order.Product);
                         }
                         else
                         {

@@ -34,7 +34,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <ListView Name="LViewClients" Background="#FFCDC1AD">
-                <ListView.View>
+                <ListView.View >
                     <GridView>
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding id}"/>
                         <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}"/>

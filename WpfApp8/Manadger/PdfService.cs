@@ -14,7 +14,7 @@ namespace WpfApp8.Manadger
 {
     public static class PdfService
     {
-        public static void GenerateReceipt(Order order, Users manager)
+        public static void GenerateReceipt(Order order, Users manager, Product product)
         {
             // Создаем диалог сохранения файла
             var saveDialog = new SaveFileDialog
@@ -34,8 +34,10 @@ namespace WpfApp8.Manadger
                         page.Content().Column(column =>
                         {
                             column.Item().Text("Чек продажи").Bold().FontSize(16);
-                            column.Item().Text($"Дата: {order.Date:dd.MM.yyyy HH:mm}");
-                            column.Item().Text($"Товары: {order.ProductArticle} Кол-во {order.Quantity}");
+                            column.Item().Text($"Дата: {order.Date:dd.MM.yyyy}");
+                            
+                            column.Item().Text($"Товары: {product.Name} {order.Quantity} Шт. X {product.Cost} ₽");
+                            column.Item().Text($"ИТОГ = {product.Cost * Convert.ToInt32(order.Quantity)} ₽");
                             column.Item().Text($"Менеджер: {manager.Name} {manager.Surname}");
                             column.Item().Text($"Клиент: {order.Clients?.Name ?? "Не указан"}");
 
