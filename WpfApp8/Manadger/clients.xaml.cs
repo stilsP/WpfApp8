@@ -13,8 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp8;
+using System.Data.Entity;
 using WpfApp8.Entities;
 using WpfApp8.Manadger;
+using static WpfApp8.MainWindow_User;
 
 namespace WpfApp8
 {
@@ -26,34 +28,59 @@ namespace WpfApp8
         public CollectionViewSource _cvs;
         public Dictionary<string, ListSortDirection> _sortDirections = new Dictionary<string, ListSortDirection>();
         public Dictionary<string, SortableGridViewColumnHeader> _headers = new Dictionary<string, SortableGridViewColumnHeader>();
-        public List<Clients> _clients;
 
         public clients()
         {
             InitializeComponent();
-
-            // Инициализируем словарь со всеми возможными ключами
+            InitializeSortDirections();
+            LoadClients();
+        }
+        private void InitializeSortDirections()
+        {
             _sortDirections.Add("Name", ListSortDirection.Ascending);
             _sortDirections.Add("Surname", ListSortDirection.Ascending);
             _sortDirections.Add("Patronymic", ListSortDirection.Ascending);
             _sortDirections.Add("Adress", ListSortDirection.Ascending);
             _sortDirections.Add("Phone", ListSortDirection.Ascending);
             _sortDirections.Add("email", ListSortDirection.Ascending);
-
-            _cvs = new CollectionViewSource();
-            _cvs.Source = _clients;
-            LViewClients.ItemsSource = _cvs.View;
-            LViewClients.ItemsSource = App.Context.Clients.ToList();
-
-            foreach (GridViewColumn column in (LViewClients.View as GridView).Columns)
+        }
+        private void LoadClients()
+        {
+            try
             {
-                var header = column.Header as SortableGridViewColumnHeader;
-                if (header != null)
+                using (var db = new AppDbContext())
                 {
-                    _headers.Add((string)header.Tag, header);
-                    // Теперь это не вызовет ошибку, так как все ключи уже добавлены
-                    _sortDirections[(string)header.Tag] = ListSortDirection.Ascending;
+                    _cvs = new CollectionViewSource();
+                    _cvs.Source = db.Clients.ToList();
+                    LViewClients.ItemsSource = _cvs.View;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки клиентов: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ViewOrders_Click(object sender, RoutedEventArgs e)
+        {
+            if (LViewClients.SelectedItem is Clients selectedClient)
+            {
+                try
+                {
+                    var ordersWindow = new CustomerOrdersWindow(selectedClient.id);
+                    ordersWindow.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка открытия заказов: {ex.Message}", "Ошибка",
+                                  MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите клиента!", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private void MainButton_Click(object sender, RoutedEventArgs e)
@@ -139,6 +166,8 @@ namespace WpfApp8
             newWindow.Show();
             this.Close();
         }
+
+       
     }
 
 }

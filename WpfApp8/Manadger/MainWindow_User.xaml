@@ -54,8 +54,7 @@
                 <Button x:Name="AddButton" Content="Добавить" Margin="12" FontSize="20" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
                 <Button x:Name="CheckButton" Content="Сформировать чек"  Command="{Binding GenerateReceiptCommand}" 
         Click="GenerateReceipt_Click"
-        Margin="10"
-        Padding="5" ></Button>
+        Margin="12" FontSize="20" Background="#FF31464F" Foreground="White" ></Button>
 
 
             </StackPanel>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp8.Entities;
 using WpfApp8.Manadger;
+using System.IO; // Для Path.Combine (если будешь использовать)
 
 namespace WpfApp8
 {
@@ -189,6 +191,40 @@ namespace WpfApp8
             else
             {
                 MessageBox.Show("Выберите заказ для формирования чека!");
+            }
+        }
+        public class AppDbContext : DbContext
+        {
+            public AppDbContext() : base(GetConnectionString()) { }
+
+            public DbSet<Clients> Clients { get; set; }
+            public DbSet<Order> Orders { get; set; }
+            public DbSet<Product> Products { get; set; }
+            public DbSet<Users> Users { get; set; }
+
+            private static string GetConnectionString()
+            {
+                string dbPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "orders.db");
+                return $"Data Source={dbPath};Version=3;";
+            }
+
+            protected override void OnModelCreating(DbModelBuilder modelBuilder)
+            {
+                // Настройка связей
+                modelBuilder.Entity<Order>()
+                    .HasRequired(o => o.Clients)
+                    .WithMany()
+                    .HasForeignKey(o => o.id_Client);
+
+                modelBuilder.Entity<Order>()
+                    .HasRequired(o => o.Product)
+                    .WithMany()
+                    .HasForeignKey(o => o.ProductArticle);
+
+                modelBuilder.Entity<Order>()
+                    .HasRequired(o => o.Users)
+                    .WithMany()
+                    .HasForeignKey(o => o.ManagerId);
             }
         }
 
