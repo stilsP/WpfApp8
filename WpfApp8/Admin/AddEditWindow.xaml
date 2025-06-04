@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8"
         mc:Ignorable="d"
-        Title="Добавление/Редактирование товаров" WindowState="Maximized" Background="#FFCDC1AD">
+        Title="Добавление/Редактирование товаров" Height="450" Width="600" Icon="/Admin/chip_icon.ico" Background="#FFCDC1AD">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -26,26 +26,27 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Артикул:" Margin="5"/>
-        <TextBox x:Name="ArticleTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="ArticleTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Название:" Margin="5"/>
-        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Background="#FFF7F3E6" TextChanged="NameTextBox_TextChanged"  />
+        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Background="#FFF7F3E6" TextChanged="NameTextBox_TextChanged"  FontSize="16"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Категория:" Margin="5"/>
-        <TextBox x:Name="CategoryTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <ComboBox x:Name="CategoryComboBox" Grid.Row="2" Grid.Column="1" Margin="5" 
+           DisplayMemberPath="Name" SelectedValuePath="id" Background="#dfe0e5"/>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Описание:" Margin="5"/>
         <TextBox x:Name="DescriptionTextBox" Grid.Row="3" Grid.Column="1" Margin="5" 
-             AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="70" Background="#FFF7F3E6" />
+             AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="70" Background="#FFF7F3E6" FontSize="16"/>
 
         <Label Grid.Row="4" Grid.Column="0" Content="Количество:" Margin="5"/>
-        <TextBox x:Name="QuantityTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="QuantityTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
 
         <Label Grid.Row="5" Grid.Column="0" Content="Единица измерения:" Margin="5"/>
-        <TextBox x:Name="MeasurementTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <ComboBox x:Name="MeasurementComboBox" Grid.Row="5" Grid.Column="1" Margin="5" Background="#dfe0e5"/>
 
         <Label Grid.Row="6" Grid.Column="0" Content="Цена:" Margin="5"/>
-        <TextBox x:Name="CostTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="CostTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
 
         <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" 
                 HorizontalAlignment="Right" Margin="5">

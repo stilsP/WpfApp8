@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8.Admin"
         mc:Ignorable="d"
-        Title="Добавление менеджера" WindowState="Maximized" Background="#FFCDC1AD" d:DesignHeight="450.177" d:DesignWidth="629.979">
+        Title="Добавление менеджера" Height="500" Width="600" Icon="/Admin/chip_icon.ico" Background="#FFCDC1AD" d:DesignHeight="450.177" d:DesignWidth="629.979">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,35 +28,38 @@
             <!-- Для текстовых полей -->
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Id:" Margin="5"/>
-        <TextBox x:Name="idTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Id:" Margin="5" />
+        <TextBox x:Name="idTextBox" Grid.Row="0" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Имя:" Margin="5"/>
-        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Background="#FFF7F3E6"  />
+        <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" Background="#FFF7F3E6"  FontSize="16"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Фамилия:" Margin="5"/>
-        <TextBox x:Name="SurnameTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="SurnameTextBox" Grid.Row="2" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Отчество:" Margin="5"/>
-        <TextBox x:Name="PatronymicTextBox" Grid.Row="3" Grid.Column="1" Margin="5"  Background="#FFF7F3E6" />
+        <TextBox x:Name="PatronymicTextBox" Grid.Row="3" Grid.Column="1" Margin="5"  Background="#FFF7F3E6" FontSize="16" />
 
         <Label Grid.Row="4" Grid.Column="0" Content="Дата рождения:" Margin="5"/>
-        <TextBox x:Name="BirthDateTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="BirthDateTextBox" Grid.Row="4" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
 
         <Label Grid.Row="5" Grid.Column="0" Content="Логин:" Margin="5"/>
-        <TextBox x:Name="LoginTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="LoginTextBox" Grid.Row="5" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
 
         <Label Grid.Row="6" Grid.Column="0" Content="Пароль:" Margin="5"/>
-        <TextBox x:Name="PasswordTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="PasswordTextBox" Grid.Row="6" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
         
         <Label Grid.Row="7" Grid.Column="0" Content="Телефон:" Margin="5"/>
-        <TextBox x:Name="PhoneTextBox" Grid.Row="7" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="PhoneTextBox" Grid.Row="7" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16"/>
         
         <Label Grid.Row="8" Grid.Column="0" Content="Адрес:" Margin="5"/>
-        <TextBox x:Name="AdressTextBox" Grid.Row="8" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+        <TextBox x:Name="AdressTextBox" Grid.Row="8" Grid.Column="1" Margin="5" Background="#FFF7F3E6" FontSize="16" />
         
         <Label Grid.Row="9" Grid.Column="0" Content="Роль:" Margin="5"/>
-        <TextBox x:Name="id_RoleTextBox" Grid.Row="9" Grid.Column="1" Margin="5" Background="#FFF7F3E6" />
+<ComboBox x:Name="RoleComboBox" Grid.Row="9" Grid.Column="1" Margin="5"
+  DisplayMemberPath="Name" 
+  SelectedValuePath="id"
+  Background="#dfe0e5"/>
 
         <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" 
             HorizontalAlignment="Right" Margin="5">

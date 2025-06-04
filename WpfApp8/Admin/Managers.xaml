@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8.Admin"
         mc:Ignorable="d"
-        Title="Менеджеры" WindowState="Maximized">
+        Title="Менеджеры" WindowState="Maximized" Icon="/Admin/chip_icon.ico">
     <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -13,8 +13,8 @@
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#FFCDC1AD">
-            <TextBox x:Name="SearchTextBox" Width="205" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
-            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="205" Margin="15" HorizontalAlignment="Right">
+            <TextBox x:Name="SearchTextBox" Width="300" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
+            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="300" Margin="15" HorizontalAlignment="Right">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -32,7 +32,7 @@
             </ComboBox>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView Name="LViewUsers" Background="#FFCDC1AD">
+            <ListView Name="LViewUsers" Background="#FFCDC1AD" FontSize="16">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding id}"/>

@@ -84,10 +84,15 @@ namespace WpfApp8
                 var editWindow = new AddEditWindow(selectedProduct);
                 if (editWindow.ShowDialog() == true)
                 {
-                    // Обновляем данные в базе
                     App.Context.Entry(selectedProduct).CurrentValues.SetValues(editWindow.Product);
                     App.Context.SaveChanges();
-                    LViewServices.ItemsSource = App.Context.Product.ToList();
+
+                    // Обновляем список
+                    _products = App.Context.Product.ToList();
+                    LViewServices.ItemsSource = _products;
+
+                    // Восстанавливаем выделение
+                    LViewServices.SelectedItem = _products.FirstOrDefault(p => p.ProductArticle == selectedProduct.ProductArticle);
                 }
             }
         }
@@ -144,12 +149,12 @@ namespace WpfApp8
                    product.Description.Contains(SearchTextBox.Text) ||
                    product.QuantityInStock.ToString().Contains(SearchTextBox.Text) ||
                    product.Measurement.Contains(SearchTextBox.Text) ||
-                   product.id_Category.ToString().Contains(SearchTextBox.Text) ||
-            product.Cost.ToString().Contains(SearchTextBox.Text);
+                   product.CategoryName.Contains(SearchTextBox.Text) ||  // Фильтрация по названию категории
+                   product.Cost.ToString().Contains(SearchTextBox.Text);
         }
 
         // Дополнительный метод для множественной сортировки
-        
+
         public void ClearSorting()
         {
             _cvs.SortDescriptions.Clear();
@@ -174,8 +179,9 @@ namespace WpfApp8
         {
             ListSortDirection direction = _sortDirections[propertyName];
 
-            LViewServices.Items.SortDescriptions.Clear();
-            LViewServices.Items.SortDescriptions.Add(new SortDescription(propertyName, direction));
+            var view = CollectionViewSource.GetDefaultView(LViewServices.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription(propertyName, direction));
 
             _sortDirections[propertyName] = direction == ListSortDirection.Ascending
                 ? ListSortDirection.Descending
