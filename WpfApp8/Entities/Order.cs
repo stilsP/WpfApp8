@@ -13,7 +13,8 @@ namespace WpfApp8.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Order
     {
         public string Code { get; set; }
@@ -28,5 +29,13 @@ namespace WpfApp8.Entities
         public virtual Product Product { get; set; }
         public virtual Users Users { get; set; }
 
+        [NotMapped] // Это свойство не будет сохраняться в БД
+        public string ManagerFIO => Users != null
+        ? $"{Users.Surname} {Users.Name} {Users.Patronymic}"
+        : "Не назначен";
+        [NotMapped] // Это свойство не будет сохраняться в БД
+        public string ClientFIO => Clients != null
+        ? $"{Clients.Surname} {Clients.Name} {Clients.Patronymic}"
+        : "Клиент не указан";
     }
 }

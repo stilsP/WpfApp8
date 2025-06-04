@@ -11,7 +11,8 @@ namespace WpfApp8.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -35,5 +36,8 @@ namespace WpfApp8.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
         public virtual Supplier Supplier { get; set; }
+
+        [NotMapped]
+        public string CategoryName => Category?.Name ?? "Без категории";
     }
 }
