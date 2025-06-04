@@ -299,6 +299,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Manadger\chip_icon.ico" />
+    <Resource Include="chip_icon.ico" />
+    <Resource Include="Admin\chip_icon.ico" />
     <Content Include="Entities\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

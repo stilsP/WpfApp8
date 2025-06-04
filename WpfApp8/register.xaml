@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8"
         mc:Ignorable="d"
-        Title="Авторизация" Height="450" Width="800">
+        Title="Авторизация" Height="450" Width="600" Icon="/chip_icon.ico">
     <Grid Background="#FFCDC1AD">
         <StackPanel Margin="20">
-            <Label Content="Логин:" />
-            <TextBox x:Name="txtLogin" Background="#FFF7F3E6" />
-            <Label Content="Пароль:" />
-            <PasswordBox x:Name="txtPassword" Background="#FFF7F3E6" />
+            <Image Source="/chip_icon.ico" Width=" 150"> </Image>
+            <Label Content="Логин:" FontSize="20" />
+            <TextBox x:Name="txtLogin" Background="#FFF7F3E6" FontSize="20"/>
+            <Label Content="Пароль:"  FontSize="20" />
+            <PasswordBox x:Name="txtPassword"  FontSize="20" Background="#FFF7F3E6" />
             <StackPanel Margin="0,20,0,0">
                 <Button Content="Войти" 
                 Click="BtnLogin_Click" 
+                        Margin="12" FontSize="20"
                 Width="auto" Background="#FF31464F" Foreground="White"/>
             </StackPanel>
         </StackPanel>

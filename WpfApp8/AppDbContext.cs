@@ -24,6 +24,10 @@ namespace WpfApp8
         {
             Database.SetInitializer<AppDbContext>(null); // Отключаем миграции
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Product>()
+        .HasOptional(p => p.Category)
+        .WithMany()
+        .HasForeignKey(p => p.id_Category);
         }
     }
 }

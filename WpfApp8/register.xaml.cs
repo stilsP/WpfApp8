@@ -53,11 +53,11 @@ namespace WpfApp8
 
                         int? idRole = user.id_Role;
 
-                        if (idRole == 2) // Пользователь
+                        if (idRole == 1) // Пользователь
                         {
                             new MainWindow_User().Show();
                         }
-                        else if (idRole == 1) // Администратор
+                        else if (idRole == 2) // Администратор
                         {
                             new MainWindow().Show();
                         }
