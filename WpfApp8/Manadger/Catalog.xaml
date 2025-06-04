@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8.Manadger"
         mc:Ignorable="d"
-        Title="Каталог" WindowState="Maximized">
+        Title="Каталог" WindowState="Maximized" Icon="/Manadger/chip_icon.ico" d:DesignHeight="238.275" d:DesignWidth="506.644">
     <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -15,16 +15,15 @@
 
         <!-- Панель поиска -->
         <Grid Grid.Row="0" Background="#FFCDC1AD">
-            <TextBox x:Name="SearchTextBox" Width="205" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
-            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="205" Margin="15" HorizontalAlignment="Right">
+            <TextBox x:Name="SearchTextBox" Width="300" Margin="15" TextChanged="SearchTextBox_TextChanged" Tag="Поиск..." HorizontalAlignment="Left" Background="#FFF7F3E6"/>
+            <ComboBox x:Name="SortComboBox" SelectionChanged="SortComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" Width="300" Margin="15" HorizontalAlignment="Right">
 
                 <ComboBoxItem Tag="ProductArticle" Content="По артикулу"/>
                 <ComboBoxItem Tag="Name" Content="По названию"/>
                 <ComboBoxItem Tag="Category" Content="По категории"/>
                 <ComboBoxItem Tag="QuantityInStock" Content="По количеству"/>
                 <ComboBoxItem Tag="Cost" Content="По цене"/>
-                <Label Content="Сортировать по:" Target="{Binding ElementName=SortComboBox}"
-   Padding="5" HorizontalAlignment="Right" FontWeight="Bold" Height="40"/>
+                <ComboBoxItem Tag="Category.Name" Content="По категории"/>
             </ComboBox>
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="10">
@@ -36,7 +35,7 @@
            Margin="5"/>
         </StackPanel>
         <Grid Grid.Row="1">
-            <ListView Name="LViewServices" BorderBrush="Black" Background="#FFCDC1AD">
+            <ListView Name="LViewServices" BorderBrush="Black" Background="#FFCDC1AD" FontSize="16">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
@@ -59,10 +58,10 @@
 
                         <GridViewColumn>
                             <GridViewColumn.Header>
-                                <local:SortableGridViewColumnHeader1 Tag="id_Category" OriginalHeader="Категория"/>
+                                <local:SortableGridViewColumnHeader1 Tag="Category.Name" OriginalHeader="Категория"/>
                             </GridViewColumn.Header>
                             <GridViewColumn.DisplayMemberBinding>
-                                <Binding Path="id_Category"/>
+                                <Binding Path="CategoryName"/>
                             </GridViewColumn.DisplayMemberBinding>
                         </GridViewColumn>
 

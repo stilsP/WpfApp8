@@ -31,25 +31,30 @@ namespace WpfApp8
         public List<Order> _order;
         private Order selectedOrder;
 
+
         public MainWindow_User()
         {
             InitializeComponent();
             QuestPDF.Settings.License = LicenseType.Community;
-            // Инициализируем словарь со всеми возможными ключами
+
+            // Инициализация сортировки
             _sortDirections.Add("Code", ListSortDirection.Ascending);
             _sortDirections.Add("Status", ListSortDirection.Ascending);
             _sortDirections.Add("Date", ListSortDirection.Ascending);
-            _sortDirections.Add("id_Client", ListSortDirection.Ascending);
+            _sortDirections.Add("Clients.Surname", ListSortDirection.Ascending); // Для сортировки по фамилии клиента
             _sortDirections.Add("ProductArticle", ListSortDirection.Ascending);
             _sortDirections.Add("Quantity", ListSortDirection.Ascending);
-            _sortDirections.Add("Manager", ListSortDirection.Ascending);
+            _sortDirections.Add("Users.Surname", ListSortDirection.Ascending);
 
+            // Загрузка данных с включением клиента и менеджера
+            var orders = App.Context.Order
+                .Include(o => o.Clients)  // Подгружаем данные клиента
+                .Include(o => o.Users)    // Подгружаем данные менеджера
+                .ToList();
 
-            _cvs = new CollectionViewSource();
-            _cvs.Source = _order;
+            _order = orders;
+            _cvs = new CollectionViewSource { Source = _order };
             LViewOrder.ItemsSource = _cvs.View;
-            LViewOrder.ItemsSource = App.Context.Order.ToList();
-
             foreach (GridViewColumn column in (LViewOrder.View as GridView).Columns)
             {
                 var header = column.Header as SortableGridViewColumnHeader;
@@ -60,7 +65,9 @@ namespace WpfApp8
                     _sortDirections[(string)header.Tag] = ListSortDirection.Ascending;
                 }
             }
+
         }
+
         public void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var view = (CollectionView)CollectionViewSource.GetDefaultView(LViewOrder.ItemsSource);
@@ -71,22 +78,29 @@ namespace WpfApp8
             if (string.IsNullOrEmpty(SearchTextBox.Text))
                 return true;
 
-            var Order = item as Order;
-            return
-                   Order.Code.ToString().Contains(SearchTextBox.Text) ||
-                   Order.Status.Contains(SearchTextBox.Text) ||
-                   Order.Date.ToString().Contains(SearchTextBox.Text) ||
-                   Order.id_Client.ToString().Contains(SearchTextBox.Text) ||
-                   Order.ProductArticle.Contains(SearchTextBox.Text) ||
-                   Order.Quantity.Contains(SearchTextBox.Text) ||
-                   Order.ManagerId.ToString().Contains(SearchTextBox.Text);
+            var order = item as Order;
+            return order.Code.ToString().Contains(SearchTextBox.Text) ||
+                   order.Status.Contains(SearchTextBox.Text) ||
+                   order.Date.ToString().Contains(SearchTextBox.Text) ||
+                   order.id_Client.ToString().Contains(SearchTextBox.Text) ||
+                   order.ProductArticle.Contains(SearchTextBox.Text) ||
+                   order.Quantity.Contains(SearchTextBox.Text) ||
+                   order.ManagerId.ToString().Contains(SearchTextBox.Text) ||
+                   (order.Clients != null &&
+                    (order.Clients.Surname.Contains(SearchTextBox.Text) ||
+                     order.Clients.Name.Contains(SearchTextBox.Text) ||
+                     order.Clients.Patronymic.Contains(SearchTextBox.Text))) ||
+                   (order.Users != null &&
+                    (order.Users.Surname.Contains(SearchTextBox.Text) ||
+                     order.Users.Name.Contains(SearchTextBox.Text) ||
+                     order.Users.Patronymic.Contains(SearchTextBox.Text)));
         }
         public void UpdateSortIndicators()
         {
             // Убираем все индикаторы
             foreach (var header in _headers.Values)
             {
-                header.UpdateHeader("");
+                header.UpdateHeader("TUTUTU");
             }
 
             // Добавляем текущий индикатор
@@ -119,14 +133,28 @@ namespace WpfApp8
         }
         public void SortByColumn(string propertyName)
         {
-            ListSortDirection direction = _sortDirections[propertyName];
+            if (propertyName.StartsWith("Users."))
+            {
+                var view = CollectionViewSource.GetDefaultView(LViewOrder.ItemsSource);
+                view.SortDescriptions.Clear();
 
-            LViewOrder.Items.SortDescriptions.Clear();
-            LViewOrder.Items.SortDescriptions.Add(new SortDescription(propertyName, direction));
+                view.SortDescriptions.Add(new SortDescription(propertyName, _sortDirections[propertyName]));
 
-            _sortDirections[propertyName] = direction == ListSortDirection.Ascending
-                ? ListSortDirection.Descending
-                : ListSortDirection.Ascending;
+                _sortDirections[propertyName] = _sortDirections[propertyName] == ListSortDirection.Ascending
+                    ? ListSortDirection.Descending
+                    : ListSortDirection.Ascending;
+            }
+            else
+            {
+                // Обычная сортировка для других полей
+                ListSortDirection direction = _sortDirections[propertyName];
+                var view = CollectionViewSource.GetDefaultView(LViewOrder.ItemsSource);
+                view.SortDescriptions.Clear();
+                view.SortDescriptions.Add(new SortDescription(propertyName, direction));
+                _sortDirections[propertyName] = direction == ListSortDirection.Ascending
+                    ? ListSortDirection.Descending
+                    : ListSortDirection.Ascending;
+            }
 
             UpdateSortIndicators();
         }
@@ -227,6 +255,29 @@ namespace WpfApp8
                     .HasForeignKey(o => o.ManagerId);
             }
         }
+        private void LViewOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedOrder = LViewOrder.SelectedItem as Order;
+            EditButton.IsEnabled = selectedOrder != null;
+        }
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedOrder != null)
+            {
+                var addWindow = new AddOrder(selectedOrder);
+                if (addWindow.ShowDialog() == true)
+                {
+                    App.Context.Entry(selectedOrder).CurrentValues.SetValues(addWindow.Order);
+                    App.Context.SaveChanges();
 
+                    // Обновляем список
+                    _order = App.Context.Order.ToList();
+                    LViewOrder.ItemsSource = _order;
+
+                    // Восстанавливаем выделение
+                    LViewOrder.SelectedItem = _order.FirstOrDefault(p => p.ProductArticle == selectedOrder.ProductArticle);
+                }
+            }
+        }
     }
 }

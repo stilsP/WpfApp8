@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8"
-        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase" xmlns:manadger="clr-namespace:WpfApp8.Manadger" d:DataContext="{d:DesignInstance Type=manadger:MainWindow_UserViewModel}"
         mc:Ignorable="d"
-        Title="Заказы" WindowState="Maximized" d:DesignHeight="457.415" d:DesignWidth="501.045">
+        Title="Заказы" WindowState="Maximized" Icon="/Manadger/chip_icon.ico" d:DesignHeight="457.415" d:DesignWidth="501.045">
     <Grid Background="#c5c0c9">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -29,19 +29,21 @@
                 <ComboBoxItem Tag="Date" Content="По Дате"/>
                 <ComboBoxItem Tag="ProductArticle" Content="По Артикулу"/>
                 <ComboBoxItem Tag="Quantity" Content="По количеству"/>
+                <ComboBoxItem Tag="Clients.Surname" Content="По клиенту"/>
+                <ComboBoxItem Tag="Users.Surname" Content="По менеджеру"/>
             </ComboBox>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Name="LViewOrder" Background="#FFCDC1AD">
+            <ListView SelectionChanged="LViewOrder_SelectionChanged"  ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Name="LViewOrder" Background="#FFCDC1AD" FontSize="16">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Код" DisplayMemberBinding="{Binding Code}" Width="auto"/>
                         <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}"/>
                         <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date, StringFormat=dd.MM.yyyy}"/>
-                        <GridViewColumn Header="Клиент" DisplayMemberBinding="{Binding id_Client}"/>
+                        <GridViewColumn Header="Клиент" DisplayMemberBinding="{Binding ClientFIO}"/>
                         <GridViewColumn Header="Артикул продукта" DisplayMemberBinding="{Binding ProductArticle}"/>
                         <GridViewColumn Header="Кол-во" DisplayMemberBinding="{Binding Quantity}"/>
-                        <GridViewColumn Header="Менеджер" DisplayMemberBinding="{Binding ManagerId}"/>
+                        <GridViewColumn Header="Менеджер" DisplayMemberBinding="{Binding ManagerFIO}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -52,6 +54,7 @@
                 <Button Content="Каталог" Margin="12" FontSize="20" Background="#FF31464F" Click="CatalogButton_Click"  Foreground="White"/>
                 <Button Content="Клиенты" Margin="12" FontSize="20" Background="#FF31464F" Click="ClientButton_Click"  Foreground="White"/>
                 <Button x:Name="AddButton" Content="Добавить" Margin="12" FontSize="20" Click="AddButton_Click" Background="#FF31464F" Foreground="White"/>
+                <Button x:Name="EditButton" Content="Редактировать" Margin="12" FontSize="20" Click="EditButton_Click" Background="#FF31464F" Foreground="White"/>
                 <Button x:Name="CheckButton" Content="Сформировать чек"  Command="{Binding GenerateReceiptCommand}" 
         Click="GenerateReceipt_Click"
         Margin="12" FontSize="20" Background="#FF31464F" Foreground="White" ></Button>

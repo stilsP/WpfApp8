@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp8.Manadger"
         mc:Ignorable="d"
-        Title="CustomerOrdersWindow" Height="450" Width="800" Background="#FFCDC1AD">
+        Title="Заказы клиента" Height="450" Width="800" Icon="/Manadger/chip_icon.ico"  Background="#FFCDC1AD">
     <Grid >
-        <ListView x:Name="OrdersListView" Margin="10" Background="#FFCDC1AD">
+        <ListView x:Name="OrdersListView" Margin="10" Background="#FFCDC1AD" FontSize="16">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Код" DisplayMemberBinding="{Binding Code}" Width="80"/>

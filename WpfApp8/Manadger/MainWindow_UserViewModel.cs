@@ -5,12 +5,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp8.Entities;
+
 
 namespace WpfApp8.Manadger
 {
     public class MainWindow_UserViewModel : INotifyPropertyChanged
     {
-        private string _userFullName = UserSession.CurrentUserFullName;
+        public string _userFullName = UserSession.CurrentUserFullName;
 
         public string UserFullName
         {

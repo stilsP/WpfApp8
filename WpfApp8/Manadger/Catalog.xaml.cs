@@ -32,12 +32,13 @@ namespace WpfApp8.Manadger
         {
             InitializeComponent();
 
-            // Инициализируем CollectionViewSource
-            _cvs = new CollectionViewSource();
-            _cvs.Source = _products;
-            LViewServices.ItemsSource = _cvs.View;
-            LViewServices.ItemsSource = App.Context.Product.ToList();
+            // Загрузка данных с включением категории
+            _products = App.Context.Product
+               .Include("Category")  // Подгружаем связанную категорию
+                .ToList();
 
+            _cvs = new CollectionViewSource { Source = _products };
+            LViewServices.ItemsSource = _cvs.View;
             // Сохраняем ссылки на заголовки
             foreach (GridViewColumn column in (LViewServices.View as GridView).Columns)
             {
@@ -87,8 +88,8 @@ namespace WpfApp8.Manadger
                    product.Description.Contains(SearchTextBox.Text) ||
                    product.QuantityInStock.ToString().Contains(SearchTextBox.Text) ||
                    product.Measurement.Contains(SearchTextBox.Text) ||
-                   product.id_Category.ToString().Contains(SearchTextBox.Text) ||
-            product.Cost.ToString().Contains(SearchTextBox.Text);
+                   product.CategoryName.Contains(SearchTextBox.Text) ||  // Фильтрация по названию категории
+                   product.Cost.ToString().Contains(SearchTextBox.Text);
         }
 
         // Дополнительный метод для множественной сортировки
@@ -117,8 +118,9 @@ namespace WpfApp8.Manadger
         {
             ListSortDirection direction = _sortDirections[propertyName];
 
-            LViewServices.Items.SortDescriptions.Clear();
-            LViewServices.Items.SortDescriptions.Add(new SortDescription(propertyName, direction));
+            var view = CollectionViewSource.GetDefaultView(LViewServices.ItemsSource);
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription(propertyName, direction));
 
             _sortDirections[propertyName] = direction == ListSortDirection.Ascending
                 ? ListSortDirection.Descending
